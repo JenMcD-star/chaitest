@@ -7,7 +7,7 @@ const people = [];
 
 app.post("/api/v1/people", (req, res) => {
   if (!req.body.name) {
-    res.status(400).json({ error: "A name is required." });
+    res.status(400).json({ error: "Please enter a name." });
     return;
   }
   if (!req.body.age) {
@@ -23,7 +23,7 @@ app.post("/api/v1/people", (req, res) => {
   req.body.index = people.length;
   people.push(req.body);
 
-  res.status(201).json(`${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`);
+  res.status(201).json(`A person record was added. ${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`);
 });
 
 app.get("/api/v1/people", (req, res) => {
@@ -31,7 +31,14 @@ app.get("/api/v1/people", (req, res) => {
 });
 
 
-
+app.get("/api/v1/people/:id", (req, res) => {
+  const index = Number(req.params.id);
+  if (index < 0 || index >= people.length) {
+    res.status(400).json({ error: `No person found the index number ${index}` })
+    return;
+  }
+  res.json(people[index]);
+})
 //app.all("/api/v1/*", (req, res) => {
 // res.json({ error: "That route is not implemented." });
 //});
