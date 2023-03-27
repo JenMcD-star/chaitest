@@ -23,7 +23,7 @@ app.post("/api/v1/people", (req, res) => {
   req.body.index = people.length;
   people.push(req.body);
 
-  res.status(201).json(`A person record was added. ${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`);
+  res.status(201).json( { message: `A person was added. ${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`});
 });
 
 app.get("/api/v1/people", (req, res) => {
@@ -34,7 +34,7 @@ app.get("/api/v1/people", (req, res) => {
 app.get("/api/v1/people/:id", (req, res) => {
   const index = Number(req.params.id);
   if (index < 0 || index >= people.length) {
-    res.status(400).json({ error: `No person found the index number ${index}` })
+    res.status(404).json({ error: `No person found the index number ${index}` })
     return;
   }
   res.json(people[index]);
