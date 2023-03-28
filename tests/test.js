@@ -25,10 +25,10 @@ describe("People", () => {
       chai
         .request(app)
         .post("/api/v1/people")
-        .send({ name: "Tester1", age: 10 })
+        .send({ name: "Tester1", age: 10})
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.should.contain({ message: `A person was added. Tester1, age: 10 index number 1 added.` });
+          res.body.should.contain({  message: `A person was added. Tester1, age: 10 index number 1 added.`});
           this.lastIndex = res.body.index
           done();
         });
@@ -54,7 +54,7 @@ describe("People", () => {
     it("should return the entry corresponding to the last person added.", (done) => {
       chai
         .request(app)
-        .get(`/api/v1/people/${1}`)
+        .get(`/api/v1/people/${this.lastIndex}`)
         .end((err, res) => {
           res.should.have.status(200);
           console.log(res.body);

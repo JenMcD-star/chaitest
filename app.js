@@ -23,7 +23,7 @@ app.post("/api/v1/people", (req, res) => {
   req.body.index = people.length;
   people.push(req.body);
 
-  res.status(201).json( { message: `A person was added. ${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`});
+  res.status(201).json( { message: `A person was added. ${req.body.name}, age: ${req.body.age} index number ${req.body.index} added.`, index: req.body.index});
 });
 
 app.get("/api/v1/people", (req, res) => {
